@@ -1,7 +1,0 @@
-It's working! Type a username and press Enter. I'd suggest:
-admin
-Then it will ask for your email — type:
-timothyosaigbovo@gmail.com
-Then it will ask for a password — type something you'll remember (like Admin1234!). You won't see the characters as you type — that's normal. Press Enter.
-It will ask you to confirm the password — type the same password again and press Enter.
-Tell me when you see "Superuser created successfully"!
