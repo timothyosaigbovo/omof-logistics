@@ -28,6 +28,17 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django_countries',
+    # Our custom apps
+    'home',
+    'accounts',
+    'services',
+    'quotes',
+    'bookings',
+    'checkout',
+    'tracking',
+    'reviews',
+    'blog',
+    'contact',
 ]
 
 MIDDLEWARE = [
