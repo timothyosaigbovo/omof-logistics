@@ -6,12 +6,11 @@ from .models import ServiceCategory, Service
 class ServiceCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
-    search_fields = ('name',)
 
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'base_price', 'estimated_days', 'is_active')
+    list_display = ('name', 'category', 'is_active')
     list_filter = ('category', 'is_active')
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'description')
