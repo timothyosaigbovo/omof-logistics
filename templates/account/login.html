@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login - Omof Logistics{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card service-card p-4">
+                <div class="text-center mb-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <h2 class="section-title">Login</h2>
+                    <p class="text-muted">Welcome back! Sign in to manage your shipments.</p>
+                </div>
+
+                <form method="POST" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-omof w-100 mt-3">Login</button>
+                </form>
+
+                <hr>
+                <p class="text-center text-muted small">
+                    Don't have an account? 
+                    <a href="{% url 'account_signup' %}">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
