@@ -17,17 +17,14 @@ class ServiceCategory(models.Model):
 
 
 class Service(models.Model):
-    """Individual services like Air Freight, Ocean Freight, etc."""
+    """Individual services like Air Freight, Ocean Freight, etc.
+    No price fields — all pricing is handled via Request for Quote."""
     category = models.ForeignKey(
         ServiceCategory, on_delete=models.CASCADE, related_name='services'
     )
     name = models.CharField(max_length=254)
     slug = models.SlugField(max_length=254, unique=True)
     description = models.TextField()
-    base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    estimated_days = models.IntegerField(
-        help_text='Estimated delivery time in days'
-    )
     image = models.ImageField(upload_to='services/', blank=True)
     is_active = models.BooleanField(default=True)
 
@@ -36,3 +33,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('services:service_detail', args=[self.slug])
