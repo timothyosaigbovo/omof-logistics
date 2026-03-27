@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="fw-bold mb-1">Quote Request #{{ rfq.pk }}</h1>
+          <p class="text-muted mb-0">Submitted {{ rfq.submitted_at|date:"d M Y, H:i" }}</p>
+        </div>
+        <span class="badge fs-6
+          {% if rfq.status == 'pending' %}bg-warning text-dark
+          {% elif rfq.status == 'quoted' %}bg-info text-dark
+          {% elif rfq.status == 'negotiating' %}bg-primary
+          {% elif rfq.status == 'accepted' %}bg-success
+          {% elif rfq.status == 'rejected' %}bg-danger
+          {% endif %}">
+          {{ rfq.get_status_display }}
+        </span>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-semibold mb-3">Shipment details</h5>
+          <dl class="row mb-0">
+            <dt class="col-sm-4 text-muted">Service</dt>
+            <dd class="col-sm-8">{{ rfq.service.name|default:"Not specified" }}</dd>
+
+            <dt class="col-sm-4 text-muted">Origin</dt>
+            <dd class="col-sm-8">{{ rfq.origin }}</dd>
+
+            <dt class="col-sm-4 text-muted">Destination</dt>
+            <dd class="col-sm-8">{{ rfq.destination }}</dd>
+
+            <dt class="col-sm-4 text-muted">Cargo</dt>
+            <dd class="col-sm-8">{{ rfq.cargo_description }}</dd>
+
+            <dt class="col-sm-4 text-muted">Weight</dt>
+            <dd class="col-sm-8">{{ rfq.estimated_weight_kg|default:"Not specified" }} kg</dd>
+
+            <dt class="col-sm-4 text-muted">Urgency</dt>
+            <dd class="col-sm-8">{{ rfq.get_urgency_display }}</dd>
+
+            {% if rfq.special_requirements %}
+            <dt class="col-sm-4 text-muted">Special requirements</dt>
+            <dd class="col-sm-8">{{ rfq.special_requirements }}</dd>
+            {% endif %}
+          </dl>
+        </div>
+      </div>
+
+      {% if rfq.status == 'pending' %}
+      <div class="alert alert-warning border-0">
+        <strong>Awaiting review.</strong> Our team will review your request and issue a quote shortly.
+      </div>
+      {% endif %}
+
+      {% if rfq.status == 'quoted' or rfq.status == 'negotiating' %}
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-semibold mb-3">Your quote</h5>
+          <p class="display-6 fw-bold text-primary mb-1">
+            {{ rfq.quote.currency }} {{ rfq.quote.proposed_price }}
+          </p>
+          <p class="text-muted small mb-3">Valid until {{ rfq.quote.valid_until|date:"d M Y" }}</p>
+          {% if rfq.quote.notes %}
+          <p class="mb-3">{{ rfq.quote.notes }}</p>
+          {% endif %}
+          <div class="d-flex gap-2">
+            <a href="{% url 'negotiation:thread' rfq.quote.pk %}" class="btn btn-outline-primary">View negotiation thread</a>
+            {% if rfq.status == 'quoted' %}
+            <a href="{% url 'negotiation:thread' rfq.quote.pk %}" class="btn btn-success">Accept &amp; proceed to payment</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if rfq.status == 'accepted' %}
+      <div class="alert alert-success border-0">
+        <strong>Quote accepted.</strong> Your order is being processed.
+        <a href="{% url 'checkout:booking_summary' rfq.quote.pk %}" class="alert-link ms-2">Go to checkout →</a>
+      </div>
+      {% endif %}
+
+      <a href="{% url 'quotes:rfq_list' %}" class="btn btn-outline-secondary btn-sm">← Back to all requests</a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
