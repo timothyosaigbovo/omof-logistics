@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Omof Logistics{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Welcome -->
+    <div class="mb-4">
+        <h2 class="section-title">Welcome, {{ request.user.username }}!</h2>
+        <p class="text-muted">Manage your quotes, bookings, and shipments from here.</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card service-card p-4 text-center">
+                <div class="feature-icon mx-auto">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
+                <p class="text-muted mb-0">Quotes</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card service-card p-4 text-center">
+                <div class="feature-icon mx-auto">
+                    <i class="fas fa-box"></i>
+                </div>
+                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
+                <p class="text-muted mb-0">Bookings</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card service-card p-4 text-center">
+                <div class="feature-icon mx-auto">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
+                <p class="text-muted mb-0">In Transit</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card service-card p-4 text-center">
+                <div class="feature-icon mx-auto">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
+                <p class="text-muted mb-0">Delivered</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <a href="{% url 'profile' %}" class="text-decoration-none">
+                <div class="card service-card p-4 text-center">
+                    <i class="fas fa-user-edit fa-2x mb-3" style="color: var(--omof-teal);"></i>
+                    <h5 class="fw-bold" style="color: var(--omof-navy);">Edit Profile</h5>
+                    <p class="text-muted small">Update your company details and contact info</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+                <i class="fas fa-calculator fa-2x mb-3" style="color: var(--omof-teal);"></i>
+                <h5 class="fw-bold" style="color: var(--omof-navy);">Get a Quote</h5>
+                <p class="text-muted small">Request a shipping quote for your cargo</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+                <i class="fas fa-history fa-2x mb-3" style="color: var(--omof-teal);"></i>
+                <h5 class="fw-bold" style="color: var(--omof-navy);">Order History</h5>
+                <p class="text-muted small">View your past bookings and shipments</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
