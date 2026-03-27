@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.name }} - Omof Logistics{% endblock %}
+
+{% block content %}
+
+<!-- Service Hero -->
+<section class="hero-section text-center" style="padding: 60px 0;">
+    <div class="container">
+        <span class="badge mb-3 fs-6" style="background-color: var(--omof-teal);">
+            {{ service.category.name }}
+        </span>
+        <h1>{{ service.name }}</h1>
+    </div>
+</section>
+
+<!-- Service Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-md-8 mb-4">
+                <div class="card service-card p-4">
+                    <h3 class="section-title mb-3">About This Service</h3>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-4 mb-4">
+                <!-- Pricing Card -->
+                <div class="card service-card p-4 mb-4">
+                    <h5 class="fw-bold text-center" style="color: var(--omof-navy);">Pricing</h5>
+                    <hr>
+                    <div class="text-center">
+                        <p class="mb-1 text-muted">Starting from</p>
+                        <h2 class="fw-bold" style="color: var(--omof-teal);">${{ service.base_price }}</h2>
+                        <p class="text-muted small">Estimated delivery: {{ service.estimated_days }} days</p>
+                    </div>
+                    <hr>
+                    <a href="#" class="btn btn-omof w-100 mb-2">
+                        <i class="fas fa-calculator me-2"></i>Get a Quote
+                    </a>
+                    <a href="{% url 'service_list' %}" class="btn btn-omof-outline w-100">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Services
+                    </a>
+                </div>
+
+                <!-- Why Choose Card -->
+                <div class="card service-card p-4">
+                    <h5 class="fw-bold" style="color: var(--omof-navy);">Why Choose Us?</h5>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2" style="color: var(--omof-teal);"></i>
+                            Proven reliability
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2" style="color: var(--omof-teal);"></i>
+                            Real-time tracking
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2" style="color: var(--omof-teal);"></i>
+                            Expert team
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2" style="color: var(--omof-teal);"></i>
+                            Competitive pricing
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2" style="color: var(--omof-teal);"></i>
+                            Insurance coverage
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other Services -->
+<section class="py-5 bg-light-custom">
+    <div class="container">
+        <h3 class="section-title text-center mb-4">Other Services You May Need</h3>
+        <div class="row g-4">
+            {% for other in service.category.services.all %}
+                {% if other.id != service.id %}
+                <div class="col-md-4">
+                    <div class="card service-card p-3 text-center">
+                        <h6 class="fw-bold" style="color: var(--omof-navy);">{{ other.name }}</h6>
+                        <p class="small text-muted mb-2">From ${{ other.base_price }}</p>
+                        <a href="{% url 'service_detail' other.slug %}" class="btn btn-omof-outline btn-sm">View</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
