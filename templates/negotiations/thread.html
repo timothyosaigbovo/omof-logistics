@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h1 class="fw-bold mb-0">Quote #{{ quote.pk }} — Negotiation</h1>
+        <span class="badge fs-6
+          {% if quote.quote_request.status == 'quoted' %}bg-info text-dark
+          {% elif quote.quote_request.status == 'negotiating' %}bg-primary
+          {% elif quote.quote_request.status == 'accepted' %}bg-success
+          {% endif %}">
+          {{ quote.quote_request.get_status_display }}
+        </span>
+      </div>
+      <p class="text-muted mb-4">
+        {{ quote.quote_request.origin }} → {{ quote.quote_request.destination }} &nbsp;·&nbsp;
+        {{ quote.quote_request.service.name|default:"General" }}
+      </p>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-semibold mb-3">Quote details</h5>
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <span class="display-6 fw-bold text-primary">{{ quote.currency }} {{ quote.proposed_price }}</span>
+            <span class="text-muted small">Valid until {{ quote.valid_until|date:"d M Y" }}</span>
+          </div>
+          {% if quote.notes %}
+          <p class="text-muted mb-0">{{ quote.notes }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="mb-4">
+        {% for msg in thread_messages %}
+        <div class="d-flex mb-3 {% if msg.is_admin %}justify-content-start{% else %}justify-content-end{% endif %}">
+          <div class="p-3 rounded-3 {% if msg.is_admin %}bg-light border{% else %}bg-primary text-white{% endif %}"
+               style="max-width:75%;">
+            <div class="small fw-semibold mb-1 {% if msg.is_admin %}text-muted{% else %}text-white-50{% endif %}">
+              {% if msg.is_admin %}Omofo Logistics{% else %}You{% endif %}
+              &nbsp;·&nbsp; {{ msg.sent_at|date:"d M Y, H:i" }}
+            </div>
+            <div>{{ msg.message }}</div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-muted text-center py-3">No messages yet. Send a message below to start the conversation.</p>
+        {% endfor %}
+      </div>
+
+      {% if quote.quote_request.status != 'accepted' %}
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            {{ form.message }}
+            <div class="d-flex gap-2 mt-2">
+              <button type="submit" class="btn btn-primary">Send message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {% if quote.quote_request.status == 'quoted' or quote.quote_request.status == 'negotiating' %}
+      <div class="card border-success border-0 shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="fw-semibold mb-1">Happy with this quote?</h6>
+            <p class="text-muted small mb-0">Accepting will take you to payment.</p>
+          </div>
+          <form method="POST" action="{% url 'negotiations:accept_quote' quote.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Accept quote</button>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      {% else %}
+      <div class="alert alert-success border-0">
+        <strong>Quote accepted.</strong>
+        <a href="{% url 'checkout:booking_summary' quote.pk %}" class="alert-link ms-2">Proceed to payment →</a>
+      </div>
+      {% endif %}
+
+      <div class="mt-4">
+        <a href="{% url 'quotes:rfq_detail' quote.quote_request.pk %}" class="btn btn-outline-secondary btn-sm">← Back to RFQ</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
