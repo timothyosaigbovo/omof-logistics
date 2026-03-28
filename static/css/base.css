@@ -146,3 +146,53 @@ a:hover {
         font-size: 1rem;
     }
 }
+/* ===== Status Badges ===== */
+.badge-pending { background-color: #ffc107; color: #333; }
+.badge-quoted { background-color: #17a2b8; color: white; }
+.badge-negotiating { background-color: #007bff; color: white; }
+.badge-accepted { background-color: #28a745; color: white; }
+.badge-rejected { background-color: #dc3545; color: white; }
+
+/* ===== Negotiation Thread ===== */
+#negotiation-thread {
+    max-height: 500px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+.message-bubble-admin {
+    background-color: var(--omof-light);
+    border: 1px solid #dee2e6;
+    border-radius: 12px 12px 12px 0;
+}
+.message-bubble-client {
+    background-color: var(--omof-teal);
+    color: white;
+    border-radius: 12px 12px 0 12px;
+}
+
+/* ===== Tracking Timeline ===== */
+.timeline-item {
+    position: relative;
+}
+.timeline-indicator {
+    min-width: 36px;
+}
+
+/* ===== Currency Selector ===== */
+#price-display {
+    transition: all 0.3s ease;
+}
+
+/* ===== Forms ===== */
+.form-control:focus, .form-select:focus {
+    border-color: var(--omof-teal);
+    box-shadow: 0 0 0 0.2rem rgba(43, 188, 179, 0.25);
+}
+
+/* ===== Toast Notifications ===== */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
