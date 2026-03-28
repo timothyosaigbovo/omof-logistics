@@ -11,6 +11,7 @@ urlpatterns = [
     path('quotes/', include('quotes.urls')),
     path('negotiations/', include('negotiations.urls')),
     path('checkout/', include('checkout.urls')),
+    path('tracking/', include('tracking.urls')),
     path('', include('home.urls')),
 ]
 
