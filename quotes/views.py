@@ -26,7 +26,11 @@ def rfq_create(request):
 
 @login_required
 def rfq_detail(request, pk):
-    rfq = get_object_or_404(QuoteRequest, pk=pk, user=request.user)
+    try:
+        rfq = QuoteRequest.objects.get(pk=pk, user=request.user)
+    except QuoteRequest.DoesNotExist:
+        messages.error(request, 'Quote request not found or you do not have permission to view it.')
+        return redirect('quotes:rfq_list')
     return render(request, 'quotes/rfq_detail.html', {'rfq': rfq})
 
 
