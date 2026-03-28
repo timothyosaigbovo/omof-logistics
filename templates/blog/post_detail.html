@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'blog:post_list' %}">Blog</a></li>
+          <li class="breadcrumb-item active">{{ post.title }}</li>
+        </ol>
+      </nav>
+      {% if post.image %}
+      <img src="{{ post.image.url }}" alt="{{ post.title }}"
+           class="img-fluid rounded mb-4" style="max-height:400px;width:100%;object-fit:cover;">
+      {% endif %}
+      <p class="text-muted small">{{ post.published_at|date:"d M Y" }} {% if post.author %}· {{ post.author.get_full_name|default:post.author.username }}{% endif %}</p>
+      <h1 class="fw-bold mb-4">{{ post.title }}</h1>
+      <div class="post-body">{{ post.body|linebreaks }}</div>
+      <hr class="my-4">
+      <a href="{% url 'blog:post_list' %}" class="btn btn-outline-secondary btn-sm">← Back to blog</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
