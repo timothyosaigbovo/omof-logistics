@@ -33,5 +33,5 @@ services:
 
 databases:
   - name: omof-logistics-db
-    plan: starter
+    plan: basic
     region: frankfurt
