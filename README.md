@@ -3,6 +3,7 @@
 A full-stack e-commerce web application built with Django for the Code Institute MS4 project. Omofo Logistics is a real logistics business platform where customers can request bespoke shipping quotes, negotiate pricing, pay securely via Stripe in multiple currencies, and track their shipments.
 
 **Live site:** https://omof-logistics.onrender.com
+**GitHub:** https://github.com/timothyosaigbovo/omof-logistics
 
 ---
 
@@ -10,6 +11,7 @@ A full-stack e-commerce web application built with Django for the Code Institute
 
 - [Project Overview](#project-overview)
 - [Business Strategy](#business-strategy)
+- [UX Design](#ux-design)
 - [User Stories](#user-stories)
 - [Features](#features)
 - [Data Models](#data-models)
@@ -28,7 +30,30 @@ Omofo Logistics offers freight forwarding, customs clearance, ocean and air frei
 
 ## Business Strategy
 
-No prices are displayed on the site. Every customer submits a Request for Quote (RFQ). The admin reviews and issues a custom quote. Client and admin negotiate via a message thread. Once agreed, the client pays via Stripe in their chosen currency.
+No prices are displayed on the site. Every customer submits a Request for Quote (RFQ). The admin reviews and issues a custom quote. Client and admin negotiate via a message thread. Once agreed, the client pays via Stripe in their chosen currency. This mirrors how real logistics businesses operate.
+
+---
+
+## UX Design
+
+### Wireframes
+
+Wireframes were created for all key pages before development began.
+
+| Page | Wireframe |
+|------|-----------|
+| Home page | [wireframe-home.svg](docs/wireframes/wireframe-home.svg) |
+| Request for Quote form | [wireframe-rfq-form.svg](docs/wireframes/wireframe-rfq-form.svg) |
+| Client dashboard | [wireframe-dashboard.svg](docs/wireframes/wireframe-dashboard.svg) |
+| Booking summary + currency selector | [wireframe-booking-summary.svg](docs/wireframes/wireframe-booking-summary.svg) |
+| Negotiation thread | [wireframe-negotiation.svg](docs/wireframes/wireframe-negotiation.svg) |
+
+### Design decisions
+
+- No prices shown anywhere on the site — all pricing is handled through the RFQ and negotiation flow
+- Currency selector appears only at checkout, not site-wide, to avoid confusion before a quote is agreed
+- Negotiation thread uses chat-bubble styling to clearly distinguish admin and client messages
+- Shipment tracking uses an animated timeline to show progress at a glance
 
 ---
 
@@ -59,49 +84,53 @@ No prices are displayed on the site. Every customer submits a Request for Quote 
 
 ## Features
 
-- **Quote request system** — clients submit detailed RFQs
-- **Negotiation messaging** — threaded chat between client and admin
-- **Multi-currency checkout** — Stripe PaymentIntent in 6 currencies
-- **Shipment tracking** — animated timeline with status updates
-- **Client dashboard** — live RFQ, order and shipment data
-- **Blog** — published posts manageable via admin
-- **Contact form** — saves messages to database
-- **AWS S3** — media file storage in production
-- **Allauth** — full authentication with email verification
+- **Quote request system** — clients submit detailed RFQs with service, route, cargo and urgency
+- **Negotiation messaging** — threaded chat between client and admin with auto-refresh
+- **Multi-currency checkout** — Stripe PaymentIntent in 6 currencies (GBP, USD, EUR, NGN, CAD, GHS)
+- **Shipment tracking** — animated timeline with status updates added by admin
+- **Client dashboard** — live RFQ list, order history and shipment tracking links
+- **Blog** — published posts manageable via Django admin
+- **Contact form** — saves messages to database, visible in admin
+- **AWS S3** — media file storage in production via django-storages
+- **Allauth** — full authentication with email/username login
 
 ---
 
 ## Data Models
 
+### Schema diagram
+
+![Data schema](docs/wireframes/data-schema.svg)
+
 ### accounts
-- UserProfile — extends User with company, phone, preferred currency
+- **UserProfile** — extends Django User with company_name, phone, preferred_currency (OneToOne)
 
 ### services
-- ServiceCategory — groups services by type
-- Service — individual service with description and image, no price fields
+- **ServiceCategory** — groups services by type (name, slug)
+- **Service** — individual service with description and image. No price fields — pricing handled via Quote only
 
 ### quotes
-- QuoteRequest — client RFQ submission with status tracking
-- Quote — admin-issued quote with price, currency and validity
+- **QuoteRequest** — client RFQ with origin, destination, cargo, urgency and status (pending/quoted/negotiating/accepted/rejected)
+- **Quote** — admin-issued quote with proposed_price, currency, valid_until and notes (OneToOne with QuoteRequest)
 
 ### negotiations
-- NegotiationMessage — threaded messages linked to a Quote
+- **NegotiationMessage** — message in a thread linked to a Quote, with is_admin flag to distinguish sender
 
 ### checkout
-- Order — confirmed payment record with Stripe payment intent ID
+- **Order** — confirmed payment record with auto-generated order_number, amount_paid, currency, Stripe payment intent ID and status
 
 ### tracking
-- Shipment — linked to Order with tracking reference
-- ShipmentUpdate — individual status update with location and timestamp
+- **Shipment** — linked OneToOne to Order with tracking_reference and current_status
+- **ShipmentUpdate** — individual status update with location, description and timestamp
 
 ### blog
-- BlogPost — published articles with image and author
+- **BlogPost** — published article with title, slug, author, body, image and is_published flag
 
 ### contact
-- ContactMessage — contact form submissions
+- **ContactMessage** — contact form submission saved to database
 
 ### reviews
-- Testimonial — featured testimonials on home page
+- **Testimonial** — featured testimonial with author_name, company, body and is_featured flag
 
 ---
 
@@ -112,29 +141,51 @@ No prices are displayed on the site. Every customer submits a Request for Quote 
 - **Stripe** — payment processing with multi-currency support
 - **AWS S3** — media file storage via django-storages and boto3
 - **Bootstrap 5** — responsive frontend framework
-- **WhiteNoise** — static file serving
+- **WhiteNoise** — static file serving in production
 - **Gunicorn** — production WSGI server
 - **Render** — cloud deployment platform
-- **GitHub** — version control
+- **GitHub** — version control with 110+ commits
 
 ---
 
 ## Testing
 
-Run the test suite locally:
+### Validation results
+
+| Test | Tool | Result |
+|------|------|--------|
+| HTML — Home | W3C Validator | [Pass](docs/testing/html-validation-home.png) |
+| HTML — Services | W3C Validator | [Pass](docs/testing/html-validation-services.png) |
+| HTML — Contact | W3C Validator | [Pass](docs/testing/html-validation-contact.png) |
+| HTML — Blog | W3C Validator | [Pass](docs/testing/html-validation-blog.png) |
+| CSS | W3C Jigsaw | [No errors](docs/testing/css-validation.png) |
+| JavaScript — currency_selector | JSHint | [1 advisory warning](docs/testing/js-validation-currency.png) |
+| JavaScript — negotiation_thread | JSHint | [No errors](docs/testing/js-validation-negotiation.png) |
+| JavaScript — tracking_timeline | JSHint | [No errors](docs/testing/js-validation-tracking.png) |
+| Python PEP8 | pycodestyle | [Pass](docs/testing/pep8-validation.png) |
+
+### Automated tests
+
+Run the full test suite:
 
 \\\ash
 python manage.py test
 \\\
 
-Manual testing was performed on all pages, forms, and user flows including:
+21 automated tests across 6 apps covering models and views.
+
+### Manual testing
+
+Manual testing was performed on all pages, forms and user flows:
+
 - Registration, login and logout
 - RFQ submission and status updates
 - Quote issuance and negotiation thread
-- Currency selector on booking summary
+- Currency selector on booking summary (GBP, USD, EUR, NGN, CAD, GHS)
 - Stripe test payment (card: 4242 4242 4242 4242)
-- Shipment tracking timeline
+- Shipment tracking timeline animation
 - Admin panel for all models
+- Responsive layout on mobile, tablet and desktop
 
 ---
 
@@ -150,7 +201,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 \\\
 
-Create a \.env\ file with:
+Create a \.env\ file:
 
 \\\
 SECRET_KEY=your-secret-key
@@ -167,14 +218,27 @@ AWS_S3_REGION_NAME=eu-west-2
 \\\ash
 python manage.py migrate
 python manage.py createsuperuser
+python manage.py setup_sample_data
 python manage.py runserver
 \\\
 
 ### Render deployment
 
-The project deploys automatically via \ender.yaml\. Push to main branch triggers a new deploy.
+1. Push code to GitHub
+2. Connect repo to Render via Blueprint (render.yaml in root)
+3. Add environment variables in Render dashboard
+4. Deploy — migrations run automatically on build
+5. Run \python manage.py setup_sample_data\ in Render Shell to populate data
 
-Environment variables are set in the Render dashboard under the web service settings.
+Environment variables required on Render: SECRET_KEY, DEBUG, DATABASE_URL, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
+
+### Security
+
+- All secret keys stored in environment variables, never committed to repository
+- DEBUG set to False in production
+- HTTPS enforced via SECURE_SSL_REDIRECT
+- SESSION_COOKIE_SECURE and CSRF_COOKIE_SECURE enabled
+- HSTS configured for production
 
 ---
 
@@ -185,6 +249,9 @@ Environment variables are set in the Render dashboard under the web service sett
 - AWS — S3 storage documentation
 - Bootstrap — frontend components
 - Django documentation — models, views, authentication
+- django-allauth — authentication library
+- django-storages — AWS S3 integration
+- django-countries — country field for UserProfile
 
 ---
 
