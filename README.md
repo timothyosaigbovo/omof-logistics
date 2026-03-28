@@ -185,3 +185,11 @@ Environment variables are set in the Render dashboard under the web service sett
 - AWS — S3 storage documentation
 - Bootstrap — frontend components
 - Django documentation — models, views, authentication
+
+---
+
+## Acknowledgements
+
+Special thanks to Code Institute for the project framework and to the open source community for the tools and libraries that made this project possible.
+
+Project completed March 2026.
