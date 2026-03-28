@@ -1,0 +1,69 @@
+<svg width="800" height="820" viewBox="0 0 800 820" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="800" height="820" fill="#f9f9f9"/>
+  <text x="400" y="22" text-anchor="middle" font-size="13" fill="#555" font-weight="bold">WIREFRAME — Request for Quote (RFQ) Form</text>
+
+  <!-- Navbar -->
+  <rect x="0" y="30" width="800" height="46" fill="#1B2A4A"/>
+  <text x="30" y="58" font-size="14" fill="#2BBCB3" font-weight="bold">Omof Logistics</text>
+  <text x="220" y="58" font-size="12" fill="#ccc">Home</text>
+  <text x="280" y="58" font-size="12" fill="#ccc">Services</text>
+  <text x="350" y="58" font-size="12" fill="#ccc">Blog</text>
+  <text x="405" y="58" font-size="12" fill="#ccc">Contact</text>
+  <text x="630" y="58" font-size="12" fill="#ccc">Dashboard</text>
+  <text x="714" y="58" font-size="12" fill="#ccc">Logout</text>
+
+  <!-- Page title -->
+  <text x="160" y="106" font-size="20" fill="#1B2A4A" font-weight="bold">Request a Quote</text>
+  <text x="160" y="126" font-size="12" fill="#888">Fill in the details below and we will come back to you with a personalised quote.</text>
+
+  <!-- Form card -->
+  <rect x="160" y="148" width="480" height="580" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Service field -->
+  <text x="180" y="176" font-size="12" fill="#444" font-weight="bold">Service</text>
+  <rect x="180" y="182" width="440" height="36" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="196" y="205" font-size="12" fill="#888">— Select a service —</text>
+  <text x="590" y="205" font-size="14" fill="#888">▾</text>
+
+  <!-- Origin / Destination -->
+  <text x="180" y="236" font-size="12" fill="#444" font-weight="bold">Origin</text>
+  <rect x="180" y="242" width="210" height="36" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="196" y="265" font-size="12" fill="#bbb">e.g. London, UK</text>
+  <text x="405" y="236" font-size="12" fill="#444" font-weight="bold">Destination</text>
+  <rect x="405" y="242" width="215" height="36" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="421" y="265" font-size="12" fill="#bbb">e.g. Lagos, Nigeria</text>
+
+  <!-- Cargo description -->
+  <text x="180" y="298" font-size="12" fill="#444" font-weight="bold">Cargo description</text>
+  <rect x="180" y="304" width="440" height="72" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="196" y="324" font-size="12" fill="#bbb">Describe the goods being shipped,</text>
+  <text x="196" y="340" font-size="12" fill="#bbb">including type, quantity and packaging...</text>
+
+  <!-- Weight / Urgency -->
+  <text x="180" y="396" font-size="12" fill="#444" font-weight="bold">Estimated weight (kg)</text>
+  <rect x="180" y="402" width="210" height="36" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="196" y="425" font-size="12" fill="#bbb">e.g. 250</text>
+  <text x="405" y="396" font-size="12" fill="#444" font-weight="bold">Urgency</text>
+  <rect x="405" y="402" width="215" height="36" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="421" y="425" font-size="12" fill="#888">Standard</text>
+  <text x="590" y="425" font-size="14" fill="#888">▾</text>
+
+  <!-- Special requirements -->
+  <text x="180" y="458" font-size="12" fill="#444" font-weight="bold">Special requirements <tspan font-weight="normal" fill="#888">(optional)</tspan></text>
+  <rect x="180" y="464" width="440" height="60" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="196" y="484" font-size="12" fill="#bbb">Any special handling, temperature requirements,</text>
+  <text x="196" y="500" font-size="12" fill="#bbb">hazardous materials, etc...</text>
+
+  <!-- Note -->
+  <rect x="180" y="542" width="440" height="44" rx="4" fill="#e8f4fd" stroke="#b8daff" stroke-width="1"/>
+  <text x="196" y="560" font-size="11" fill="#0c5460">You must be logged in to submit a quote request.</text>
+  <text x="196" y="576" font-size="11" fill="#0c5460">Your request will be reviewed within 1–2 business days.</text>
+
+  <!-- Submit button -->
+  <rect x="180" y="602" width="440" height="44" rx="6" fill="#1B2A4A"/>
+  <text x="400" y="629" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">Submit quote request</text>
+
+  <!-- Footer -->
+  <rect x="0" y="770" width="800" height="50" fill="#1B2A4A"/>
+  <text x="400" y="800" text-anchor="middle" font-size="10" fill="#666">© 2026 Omof Logistics. All Rights Reserved.</text>
+</svg>

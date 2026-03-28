@@ -1,0 +1,116 @@
+<svg width="800" height="920" viewBox="0 0 800 920" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="800" height="920" fill="#f9f9f9"/>
+  <text x="400" y="22" text-anchor="middle" font-size="13" fill="#555" font-weight="bold">WIREFRAME — Home Page</text>
+
+  <!-- Navbar -->
+  <rect x="0" y="30" width="800" height="46" fill="#1B2A4A"/>
+  <text x="30" y="58" font-size="14" fill="#2BBCB3" font-weight="bold">Omof Logistics</text>
+  <text x="220" y="58" font-size="12" fill="#ccc">Home</text>
+  <text x="280" y="58" font-size="12" fill="#ccc">Services</text>
+  <text x="350" y="58" font-size="12" fill="#ccc">Blog</text>
+  <text x="405" y="58" font-size="12" fill="#ccc">Contact</text>
+  <text x="460" y="58" font-size="12" fill="#2BBCB3">Get a Quote</text>
+  <rect x="630" y="38" width="70" height="24" rx="4" fill="#555"/>
+  <text x="665" y="55" text-anchor="middle" font-size="11" fill="#ccc">Login</text>
+  <rect x="712" y="38" width="76" height="24" rx="4" fill="#2BBCB3" opacity="0.8"/>
+  <text x="750" y="55" text-anchor="middle" font-size="11" fill="#fff">Register</text>
+
+  <!-- Hero -->
+  <rect x="0" y="76" width="800" height="200" fill="#1B2A4A"/>
+  <text x="400" y="132" text-anchor="middle" font-size="22" fill="#fff" font-weight="bold">Your Trusted Partner in Global Logistics</text>
+  <text x="400" y="158" text-anchor="middle" font-size="12" fill="#aaa">End-to-end freight forwarding, shipping, customs clearance across Africa and beyond</text>
+  <rect x="240" y="174" width="120" height="34" rx="5" fill="#2BBCB3"/>
+  <text x="300" y="196" text-anchor="middle" font-size="12" fill="#fff">Our Services</text>
+  <rect x="378" y="174" width="100" height="34" rx="5" fill="none" stroke="#2BBCB3" stroke-width="2"/>
+  <text x="428" y="196" text-anchor="middle" font-size="12" fill="#2BBCB3">About Us</text>
+
+  <!-- Services section -->
+  <text x="400" y="306" text-anchor="middle" font-size="16" fill="#1B2A4A" font-weight="bold">Our Services</text>
+  <text x="400" y="326" text-anchor="middle" font-size="11" fill="#888">Comprehensive logistics solutions tailored to your needs</text>
+
+  <!-- Service cards row 1 -->
+  <rect x="20" y="342" width="238" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="129" y="370" text-anchor="middle" font-size="20" fill="#2BBCB3">✈</text>
+  <text x="129" y="392" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Air Freight</text>
+  <text x="129" y="410" text-anchor="middle" font-size="10" fill="#888">Fast and secure air cargo solutions</text>
+  <text x="129" y="424" text-anchor="middle" font-size="10" fill="#888">for time-sensitive shipments.</text>
+  <rect x="64" y="432" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="129" y="442" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <rect x="280" y="342" width="238" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="399" y="370" text-anchor="middle" font-size="20" fill="#2BBCB3">⛵</text>
+  <text x="399" y="392" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Ocean Freight</text>
+  <text x="399" y="410" text-anchor="middle" font-size="10" fill="#888">Cost-effective sea freight connecting</text>
+  <text x="399" y="424" text-anchor="middle" font-size="10" fill="#888">global trade routes reliably.</text>
+  <rect x="334" y="432" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="399" y="442" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <rect x="540" y="342" width="240" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="660" y="370" text-anchor="middle" font-size="20" fill="#2BBCB3">🚚</text>
+  <text x="660" y="392" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Inland Transport</text>
+  <text x="660" y="410" text-anchor="middle" font-size="10" fill="#888">Point-to-point delivery and</text>
+  <text x="660" y="424" text-anchor="middle" font-size="10" fill="#888">intercity distribution.</text>
+  <rect x="595" y="432" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="660" y="442" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <!-- Service cards row 2 -->
+  <rect x="20" y="464" width="238" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="129" y="492" text-anchor="middle" font-size="20" fill="#2BBCB3">📄</text>
+  <text x="129" y="514" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Customs Clearance</text>
+  <text x="129" y="532" text-anchor="middle" font-size="10" fill="#888">Expert customs brokerage and</text>
+  <text x="129" y="546" text-anchor="middle" font-size="10" fill="#888">trade regulation support.</text>
+  <rect x="64" y="554" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="129" y="564" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <rect x="280" y="464" width="238" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="399" y="492" text-anchor="middle" font-size="20" fill="#2BBCB3">🛡</text>
+  <text x="399" y="514" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Goods Protection</text>
+  <text x="399" y="532" text-anchor="middle" font-size="10" fill="#888">Maximum care and insurance</text>
+  <text x="399" y="546" text-anchor="middle" font-size="10" fill="#888">for all goods entrusted to us.</text>
+  <rect x="334" y="554" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="399" y="564" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <rect x="540" y="464" width="240" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="660" y="492" text-anchor="middle" font-size="20" fill="#2BBCB3">🔗</text>
+  <text x="660" y="514" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="bold">Supply Chain</text>
+  <text x="660" y="532" text-anchor="middle" font-size="10" fill="#888">Complete supply chain solutions</text>
+  <text x="660" y="546" text-anchor="middle" font-size="10" fill="#888">for efficiency and visibility.</text>
+  <rect x="595" y="554" width="130" height="12" rx="4" fill="#2BBCB3" opacity="0.7"/>
+  <text x="660" y="564" text-anchor="middle" font-size="9" fill="#fff">Get a quote →</text>
+
+  <!-- Why choose us -->
+  <rect x="0" y="588" width="800" height="170" fill="#f0f7f7"/>
+  <text x="400" y="618" text-anchor="middle" font-size="16" fill="#1B2A4A" font-weight="bold">Why Choose Omof Logistics?</text>
+  <text x="400" y="638" text-anchor="middle" font-size="11" fill="#888">Trusted by businesses across multiple industries</text>
+  <rect x="20" y="654" width="178" height="84" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="109" y="682" text-anchor="middle" font-size="12" fill="#1B2A4A" font-weight="bold">Proven Reliability</text>
+  <text x="109" y="700" text-anchor="middle" font-size="10" fill="#888">Consistently deliver shipments</text>
+  <text x="109" y="714" text-anchor="middle" font-size="10" fill="#888">safely and on time.</text>
+  <rect x="208" y="654" width="178" height="84" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="297" y="682" text-anchor="middle" font-size="12" fill="#1B2A4A" font-weight="bold">Industry Expertise</text>
+  <text x="297" y="700" text-anchor="middle" font-size="10" fill="#888">Tailored solutions for diverse</text>
+  <text x="297" y="714" text-anchor="middle" font-size="10" fill="#888">industries and needs.</text>
+  <rect x="396" y="654" width="178" height="84" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="485" y="682" text-anchor="middle" font-size="12" fill="#1B2A4A" font-weight="bold">Advanced Technology</text>
+  <text x="485" y="700" text-anchor="middle" font-size="10" fill="#888">Real-time tracking and digital</text>
+  <text x="485" y="714" text-anchor="middle" font-size="10" fill="#888">systems for full visibility.</text>
+  <rect x="584" y="654" width="196" height="84" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="682" y="682" text-anchor="middle" font-size="12" fill="#1B2A4A" font-weight="bold">Wide Network</text>
+  <text x="682" y="700" text-anchor="middle" font-size="10" fill="#888">Strong local and international</text>
+  <text x="682" y="714" text-anchor="middle" font-size="10" fill="#888">logistics coverage.</text>
+
+  <!-- CTA -->
+  <rect x="0" y="770" width="800" height="100" fill="#2BBCB3"/>
+  <text x="400" y="808" text-anchor="middle" font-size="18" fill="#fff" font-weight="bold">Ready to Ship?</text>
+  <text x="400" y="830" text-anchor="middle" font-size="12" fill="#e0faf8">Get an instant quote for your shipment today.</text>
+  <rect x="320" y="840" width="160" height="22" rx="4" fill="#fff" opacity="0.9"/>
+  <text x="400" y="856" text-anchor="middle" font-size="11" fill="#1B2A4A" font-weight="bold">Get Started</text>
+
+  <!-- Footer -->
+  <rect x="0" y="876" width="800" height="44" fill="#1B2A4A"/>
+  <text x="50" y="900" font-size="12" fill="#2BBCB3" font-weight="bold">Omof Logistics</text>
+  <text x="290" y="892" font-size="11" fill="#aaa" font-weight="bold">Contact Us</text>
+  <text x="290" y="908" font-size="10" fill="#666">info@omoflogistics.com</text>
+  <text x="540" y="892" font-size="11" fill="#aaa" font-weight="bold">Quick Links</text>
+  <text x="540" y="908" font-size="10" fill="#666">Home · Services · Blog</text>
+</svg>
