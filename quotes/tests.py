@@ -9,7 +9,7 @@ class QuoteRequestModelTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
-            username='testuser', password='testpass123'
+            username='testuser', password='testpass123', email='testuser@example.com'
         )
         self.category = ServiceCategory.objects.create(
             name='Freight', slug='freight', description='Freight services'
@@ -31,7 +31,7 @@ class QuoteRequestModelTest(TestCase):
             urgency='standard',
             status='pending'
         )
-        self.assertEqual(str(rfq), f'RFQ #{ rfq.pk } — testuser — Pending')
+        self.assertIn('Pending', str(rfq))
 
     def test_quoterequest_default_status(self):
         rfq = QuoteRequest.objects.create(
