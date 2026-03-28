@@ -144,11 +144,20 @@ Wireframes were created for all key pages before development began.
 - **WhiteNoise** — static file serving in production
 - **Gunicorn** — production WSGI server
 - **Render** — cloud deployment platform
-- **GitHub** — version control with 110+ commits
+- **GitHub** — version control with 115+ commits
 
 ---
 
 ## Testing
+
+### Lighthouse scores
+
+| Device | Performance | Accessibility | Best Practices | SEO |
+|--------|-------------|---------------|----------------|-----|
+| Mobile | 95 | 74 | 100 | 90 |
+| Desktop | 100 | 83 | 100 | 90 |
+
+Screenshots: [Mobile](docs/testing/lighthouse-mobile.png) · [Desktop](docs/testing/lighthouse-desktop.png)
 
 ### Validation results
 
@@ -172,7 +181,7 @@ Run the full test suite:
 python manage.py test
 \\\
 
-21 automated tests across 6 apps covering models and views.
+23 automated tests across 6 apps covering models and views — all passing.
 
 ### Manual testing
 
