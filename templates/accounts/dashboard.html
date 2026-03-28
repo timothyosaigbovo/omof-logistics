@@ -1,80 +1,177 @@
 {% extends 'base.html' %}
-
 {% block title %}Dashboard - Omof Logistics{% endblock %}
-
 {% block content %}
 <div class="container py-5">
-    <!-- Welcome -->
-    <div class="mb-4">
-        <h2 class="section-title">Welcome, {{ request.user.username }}!</h2>
-        <p class="text-muted">Manage your quotes, bookings, and shipments from here.</p>
-    </div>
 
-    <!-- Quick Stats -->
-    <div class="row g-4 mb-5">
-        <div class="col-md-3">
-            <div class="card service-card p-4 text-center">
-                <div class="feature-icon mx-auto">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
-                <p class="text-muted mb-0">Quotes</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card service-card p-4 text-center">
-                <div class="feature-icon mx-auto">
-                    <i class="fas fa-box"></i>
-                </div>
-                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
-                <p class="text-muted mb-0">Bookings</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card service-card p-4 text-center">
-                <div class="feature-icon mx-auto">
-                    <i class="fas fa-truck"></i>
-                </div>
-                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
-                <p class="text-muted mb-0">In Transit</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card service-card p-4 text-center">
-                <div class="feature-icon mx-auto">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3 class="fw-bold mt-2" style="color: var(--omof-navy);">0</h3>
-                <p class="text-muted mb-0">Delivered</p>
-            </div>
-        </div>
-    </div>
+  <div class="mb-4">
+    <h2 class="fw-bold">Welcome, {{ request.user.username }}!</h2>
+    <p class="text-muted">Manage your quotes, bookings, and shipments from here.</p>
+  </div>
 
-    <!-- Quick Actions -->
-    <div class="row g-4">
-        <div class="col-md-4">
-            <a href="{% url 'profile' %}" class="text-decoration-none">
-                <div class="card service-card p-4 text-center">
-                    <i class="fas fa-user-edit fa-2x mb-3" style="color: var(--omof-teal);"></i>
-                    <h5 class="fw-bold" style="color: var(--omof-navy);">Edit Profile</h5>
-                    <p class="text-muted small">Update your company details and contact info</p>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4">
-            <div class="card service-card p-4 text-center">
-                <i class="fas fa-calculator fa-2x mb-3" style="color: var(--omof-teal);"></i>
-                <h5 class="fw-bold" style="color: var(--omof-navy);">Get a Quote</h5>
-                <p class="text-muted small">Request a shipping quote for your cargo</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card service-card p-4 text-center">
-                <i class="fas fa-history fa-2x mb-3" style="color: var(--omof-teal);"></i>
-                <h5 class="fw-bold" style="color: var(--omof-navy);">Order History</h5>
-                <p class="text-muted small">View your past bookings and shipments</p>
-            </div>
-        </div>
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <h3 class="fw-bold text-primary">{{ rfq_count }}</h3>
+        <p class="text-muted mb-0">Quote Requests</p>
+      </div>
     </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <h3 class="fw-bold text-primary">{{ order_count }}</h3>
+        <p class="text-muted mb-0">Orders</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <h3 class="fw-bold text-primary">{{ in_transit_count }}</h3>
+        <p class="text-muted mb-0">In Transit</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <h3 class="fw-bold text-primary">{{ delivered_count }}</h3>
+        <p class="text-muted mb-0">Delivered</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-semibold mb-0">My Quote Requests</h5>
+        <a href="{% url 'quotes:rfq_create' %}" class="btn btn-primary btn-sm">+ New request</a>
+      </div>
+      {% if rfqs %}
+      <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Service</th>
+                <th>Route</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for rfq in rfqs %}
+              <tr>
+                <td class="text-muted">{{ rfq.pk }}</td>
+                <td>{{ rfq.service.name|default:"—" }}</td>
+                <td>{{ rfq.origin }} → {{ rfq.destination }}</td>
+                <td>{{ rfq.submitted_at|date:"d M Y" }}</td>
+                <td>
+                  <span class="badge
+                    {% if rfq.status == 'pending' %}bg-warning text-dark
+                    {% elif rfq.status == 'quoted' %}bg-info text-dark
+                    {% elif rfq.status == 'negotiating' %}bg-primary
+                    {% elif rfq.status == 'accepted' %}bg-success
+                    {% elif rfq.status == 'rejected' %}bg-danger
+                    {% endif %}">
+                    {{ rfq.get_status_display }}
+                  </span>
+                </td>
+                <td>
+                  <a href="{% url 'quotes:rfq_detail' rfq.pk %}" class="btn btn-outline-secondary btn-sm">View</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% else %}
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <p class="text-muted mb-2">No quote requests yet.</p>
+        <a href="{% url 'quotes:rfq_create' %}" class="btn btn-primary btn-sm">Request your first quote</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <h5 class="fw-semibold mb-3">My Orders</h5>
+      {% if orders %}
+      <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Order number</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Tracking</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td class="fw-semibold">{{ order.order_number }}</td>
+                <td>{{ order.amount_paid }}</td>
+                <td>{{ order.currency }}</td>
+                <td>{{ order.created_at|date:"d M Y" }}</td>
+                <td>
+                  <span class="badge
+                    {% if order.status == 'pending' %}bg-warning text-dark
+                    {% elif order.status == 'paid' %}bg-success
+                    {% elif order.status == 'failed' %}bg-danger
+                    {% endif %}">
+                    {{ order.get_status_display }}
+                  </span>
+                </td>
+                <td>
+                  {% if order.shipment %}
+                  <a href="{% url 'tracking:tracking_detail' order.shipment.tracking_reference %}"
+                     class="btn btn-outline-primary btn-sm">Track</a>
+                  {% else %}
+                  <span class="text-muted small">Not yet shipped</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% else %}
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <p class="text-muted mb-0">No orders yet.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <a href="{% url 'profile' %}" class="text-decoration-none">
+        <div class="card border-0 shadow-sm p-4 text-center h-100">
+          <h5 class="fw-bold">Edit Profile</h5>
+          <p class="text-muted small">Update your company details, contact info and preferred currency</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'quotes:rfq_create' %}" class="text-decoration-none">
+        <div class="card border-0 shadow-sm p-4 text-center h-100">
+          <h5 class="fw-bold">Get a Quote</h5>
+          <p class="text-muted small">Request a shipping quote for your cargo</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'quotes:rfq_list' %}" class="text-decoration-none">
+        <div class="card border-0 shadow-sm p-4 text-center h-100">
+          <h5 class="fw-bold">All Requests</h5>
+          <p class="text-muted small">View all your quote requests and their status</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </div>
 {% endblock %}
