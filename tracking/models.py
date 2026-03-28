@@ -23,7 +23,10 @@ class Shipment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Shipment {self.tracking_reference} — {self.get_current_status_display()}"
+        return (
+            f"Shipment {self.tracking_reference} "
+            f"— {self.get_current_status_display()}"
+        )
 
 
 class ShipmentUpdate(models.Model):
@@ -39,4 +42,7 @@ class ShipmentUpdate(models.Model):
         ordering = ['timestamp']
 
     def __str__(self):
-        return f"{self.shipment.tracking_reference} — {self.status} at {self.timestamp:%d %b %Y %H:%M}"
+        return (
+            f"{self.shipment.tracking_reference} "
+            f"— {self.status} at {self.timestamp:%d %b %Y %H:%M}"
+        )

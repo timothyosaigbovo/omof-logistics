@@ -14,7 +14,10 @@ def rfq_create(request):
             rfq = form.save(commit=False)
             rfq.user = request.user
             rfq.save()
-            messages.success(request, 'Your quote request has been submitted. We will be in touch shortly.')
+            messages.success(
+                request,
+                'Your quote request has been submitted. We will be in touch shortly.'
+            )
             return redirect('quotes:rfq_detail', pk=rfq.pk)
     else:
         form = QuoteRequestForm(service_id=service_id)
