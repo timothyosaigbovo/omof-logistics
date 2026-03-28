@@ -2,7 +2,6 @@ services:
   - type: web
     name: omof-logistics
     runtime: python
-    plan: hobby
     region: frankfurt
     branch: main
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
@@ -33,5 +32,4 @@ services:
 
 databases:
   - name: omof-logistics-db
-    plan: hobby
     region: frankfurt
