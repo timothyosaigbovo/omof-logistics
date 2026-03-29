@@ -1,11 +1,22 @@
+# services/models.py
+# Models for the services catalogue.
+# Services are grouped into categories and displayed without prices.
+# All pricing is handled via the Request for Quote (RFQ) flow.
+
 from django.db import models
 
 
 class ServiceCategory(models.Model):
-    """Categories like Transport, Clearing, Logistics Management"""
+    """
+    Groups related services together e.g. Air Freight, Ocean Freight.
+    Used to organise the services listing page by category.
+    """
+
     name = models.CharField(max_length=254)
+    # URL-friendly identifier for the category
     slug = models.SlugField(max_length=254, unique=True)
     description = models.TextField()
+    # Optional category image stored in AWS S3 in production
     image = models.ImageField(upload_to='categories/', blank=True)
 
     class Meta:
@@ -17,15 +28,23 @@ class ServiceCategory(models.Model):
 
 
 class Service(models.Model):
-    """Individual services like Air Freight, Ocean Freight, etc.
-    No price fields — all pricing is handled via Request for Quote."""
+    """
+    Represents an individual logistics service offered by Omofo Logistics.
+    Examples: Air Freight, Ocean Freight, Customs Clearance.
+    No price fields — all pricing is handled via the Request for Quote flow.
+    Only active services are shown on the public services page.
+    """
+
     category = models.ForeignKey(
         ServiceCategory, on_delete=models.CASCADE, related_name='services'
     )
     name = models.CharField(max_length=254)
+    # URL-friendly identifier used in service detail URLs
     slug = models.SlugField(max_length=254, unique=True)
     description = models.TextField()
+    # Optional service image stored in AWS S3 in production
     image = models.ImageField(upload_to='services/', blank=True)
+    # Inactive services are hidden from the public listing
     is_active = models.BooleanField(default=True)
 
     class Meta:
@@ -35,5 +54,6 @@ class Service(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """Return the canonical URL for this service detail page."""
         from django.urls import reverse
         return reverse('services:service_detail', args=[self.slug])
