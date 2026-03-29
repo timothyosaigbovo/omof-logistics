@@ -1,8 +1,18 @@
+# tracking/models.py
+# Models for shipment tracking — linked to a paid Order.
+# Admin creates Shipment records and adds ShipmentUpdate entries
+# to build a timeline visible to the customer.
+
 from django.db import models
 from checkout.models import Order
 
 
 class Shipment(models.Model):
+    """
+    Represents a shipment linked one-to-one with a paid Order.
+    Tracks the current status and estimated delivery date.
+    Admin creates and manages shipments via the Django admin panel.
+    """
 
     STATUS_CHOICES = [
         ('booked', 'Booked'),
@@ -15,6 +25,7 @@ class Shipment(models.Model):
     order = models.OneToOneField(
         Order, on_delete=models.CASCADE, related_name='shipment'
     )
+    # Unique human-readable tracking reference e.g. OMOF-2026-001
     tracking_reference = models.CharField(max_length=100, unique=True)
     current_status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default='booked'
@@ -30,10 +41,17 @@ class Shipment(models.Model):
 
 
 class ShipmentUpdate(models.Model):
+    """
+    Represents a single status update on a shipment timeline.
+    Multiple updates build the animated tracking timeline shown to the customer.
+    Ordered chronologically by timestamp.
+    """
+
     shipment = models.ForeignKey(
         Shipment, on_delete=models.CASCADE, related_name='updates'
     )
     status = models.CharField(max_length=20, choices=Shipment.STATUS_CHOICES)
+    # Optional location description e.g. London Heathrow
     location = models.CharField(max_length=200, blank=True)
     description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
