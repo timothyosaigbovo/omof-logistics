@@ -144,7 +144,7 @@ Wireframes were created for all key pages before development began.
 - **WhiteNoise** — static file serving in production
 - **Gunicorn** — production WSGI server
 - **Render** — cloud deployment platform
-- **GitHub** — version control with 115+ commits
+- **GitHub** — version control with 122+ commits
 
 ---
 
@@ -183,18 +183,32 @@ python manage.py test
 
 23 automated tests across 6 apps covering models and views — all passing.
 
-### Manual testing
+### Manual testing — full user journey
 
-Manual testing was performed on all pages, forms and user flows:
+#### Customer journey
 
-- Registration, login and logout
-- RFQ submission and status updates
-- Quote issuance and negotiation thread
-- Currency selector on booking summary (GBP, USD, EUR, NGN, CAD, GHS)
-- Stripe test payment (card: 4242 4242 4242 4242)
-- Shipment tracking timeline animation
-- Admin panel for all models
-- Responsive layout on mobile, tablet and desktop
+| Step | Action | Expected | Result | Screenshot |
+|------|--------|----------|--------|------------|
+| 1 | Register new account | Redirect to home, logged in | Pass | [View](docs/testing/manual-01-register.png) |
+| 2 | Submit RFQ (Air Freight, London to Lagos) | RFQ created with Pending status | Pass | [View](docs/testing/manual-02-rfq-submit.png) |
+| 5 | View quote issued by admin | Quote shown with price GBP 1200 | Pass | [View](docs/testing/manual-05-customer-views-quote.png) |
+| 6 | Send negotiation message | Message appears in thread | Pass | [View](docs/testing/manual-06-customer-negotiation.png) |
+| 8 | Accept quote — select GBP currency | Booking summary with currency selector | Pass | [View](docs/testing/manual-08-accept-quote-currency.png) |
+| 9 | Pay via Stripe test card 4242 4242 4242 4242 | Payment success page | Pass | [View](docs/testing/manual-10-payment-success.png) |
+| 10 | View shipment tracking timeline | Booked status with location shown | Pass | [View](docs/testing/manual-13-shipment-tracking.png) |
+
+#### Admin journey
+
+| Step | Action | Expected | Result | Screenshot |
+|------|--------|----------|--------|------------|
+| 3 | View incoming RFQ in admin | RFQ visible with all details | Pass | [View](docs/testing/manual-03-admin-view-rfq.png) |
+| 4 | Issue quote against RFQ | Quote saved, RFQ status changes to Quoted | Pass | [View](docs/testing/manual-04-admin-issue-quote.png) |
+| 7 | Reply to negotiation thread | Message sent, visible to customer | Pass | [View](docs/testing/manual-07-admin-negotiation-reply.png) |
+| 11 | Create shipment with tracking update | Shipment created, timeline visible to customer | Pass | [View](docs/testing/manual-11-admin-create-shipment.png) |
+
+### Responsive testing
+
+Tested on mobile (Galaxy Tab S4, 712px), tablet and desktop using Chrome DevTools device toolbar. Site is fully responsive using Bootstrap 5 grid.
 
 ---
 
@@ -239,7 +253,7 @@ python manage.py runserver
 4. Deploy — migrations run automatically on build
 5. Run \python manage.py setup_sample_data\ in Render Shell to populate data
 
-Environment variables required on Render: SECRET_KEY, DEBUG, DATABASE_URL, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
+Environment variables required: SECRET_KEY, DEBUG, DATABASE_URL, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
 
 ### Security
 
