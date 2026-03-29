@@ -1,9 +1,17 @@
+# accounts/models.py
+# Extends the built-in Django User model with logistics-specific profile fields.
+
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 
 class UserProfile(models.Model):
+    """
+    Stores additional information about a registered user.
+    Linked one-to-one with Django's built-in User model.
+    Includes company details, contact info, address and preferred currency.
+    """
 
     CURRENCY_CHOICES = [
         ('GBP', 'British Pound'),
