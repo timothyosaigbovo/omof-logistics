@@ -1,3 +1,6 @@
+# checkout/models.py
+# Handles order creation and payment tracking after a quote is accepted.
+
 from django.db import models
 from django.contrib.auth.models import User
 from quotes.models import Quote
@@ -5,6 +8,11 @@ import uuid
 
 
 class Order(models.Model):
+    """
+    Represents a confirmed payment for an accepted quote.
+    Order number is auto-generated using UUID on save.
+    Tracks Stripe payment intent ID, currency, amount and status.
+    """
 
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -28,6 +36,7 @@ class Order(models.Model):
     quote = models.OneToOneField(
         Quote, on_delete=models.CASCADE, related_name='order'
     )
+    # Unique order reference generated automatically on first save
     order_number = models.CharField(max_length=32, unique=True, editable=False)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='GBP')
@@ -36,9 +45,11 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def _generate_order_number(self):
+        """Generate a unique order number using UUID."""
         return uuid.uuid4().hex.upper()
 
     def save(self, *args, **kwargs):
+        """Auto-generate order number if not already set."""
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
