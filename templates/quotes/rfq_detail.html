@@ -27,22 +27,16 @@
           <dl class="row mb-0">
             <dt class="col-sm-4 text-muted">Service</dt>
             <dd class="col-sm-8">{{ rfq.service.name|default:"Not specified" }}</dd>
-
             <dt class="col-sm-4 text-muted">Origin</dt>
             <dd class="col-sm-8">{{ rfq.origin }}</dd>
-
             <dt class="col-sm-4 text-muted">Destination</dt>
             <dd class="col-sm-8">{{ rfq.destination }}</dd>
-
             <dt class="col-sm-4 text-muted">Cargo</dt>
             <dd class="col-sm-8">{{ rfq.cargo_description }}</dd>
-
             <dt class="col-sm-4 text-muted">Weight</dt>
             <dd class="col-sm-8">{{ rfq.estimated_weight_kg|default:"Not specified" }} kg</dd>
-
             <dt class="col-sm-4 text-muted">Urgency</dt>
             <dd class="col-sm-8">{{ rfq.get_urgency_display }}</dd>
-
             {% if rfq.special_requirements %}
             <dt class="col-sm-4 text-muted">Special requirements</dt>
             <dd class="col-sm-8">{{ rfq.special_requirements }}</dd>
@@ -69,9 +63,9 @@
           <p class="mb-3">{{ rfq.quote.notes }}</p>
           {% endif %}
           <div class="d-flex gap-2">
-            <a href="{% url 'negotiation:thread' rfq.quote.pk %}" class="btn btn-outline-primary">View negotiation thread</a>
+            <a href="{% url 'negotiations:thread' rfq.quote.pk %}" class="btn btn-outline-primary">View negotiation thread</a>
             {% if rfq.status == 'quoted' %}
-            <a href="{% url 'negotiation:thread' rfq.quote.pk %}" class="btn btn-success">Accept &amp; proceed to payment</a>
+            <a href="{% url 'negotiations:thread' rfq.quote.pk %}" class="btn btn-success">Accept &amp; proceed to payment</a>
             {% endif %}
           </div>
         </div>
@@ -80,7 +74,7 @@
 
       {% if rfq.status == 'accepted' %}
       <div class="alert alert-success border-0">
-        <strong>Quote accepted.</strong> Your order is being processed.
+        <strong>Quote accepted.</strong>
         <a href="{% url 'checkout:booking_summary' rfq.quote.pk %}" class="alert-link ms-2">Go to checkout →</a>
       </div>
       {% endif %}
